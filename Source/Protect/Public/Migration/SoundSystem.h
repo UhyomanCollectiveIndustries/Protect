@@ -24,8 +24,9 @@ public:
 private:
 
 	// 各サウンドアセットの格納郡
-
+	UPROPERTY()
 	USoundBase* StageSound = nullptr;	// ステージ衝突用
+	UPROPERTY()
 	USoundBase* EnemySound = nullptr;	// 敵消滅用
 
 	// ワールドが破棄時の安全性考慮し、弱参照で保持

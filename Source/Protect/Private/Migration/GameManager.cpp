@@ -50,17 +50,20 @@ void AGameManager::BeginPlay()
 
 	/** Stageの初期化 */
 	StageManager = NewObject<UStageManager>(this);
-
-	FBox SpawnArea(FVector(1000.f, -500.f, 0.f), FVector(6500.f, 500.f,500.f));
-
-	TArray<FVector> RockPositions;
-	for (int32 i = 0; i < 30; ++i)
+	
+	for (const FStageObjectGroup& Group : StageObjectGroups)
 	{
-		FVector RandomLocation = FMath::RandPointInBox(SpawnArea);
-		RockPositions.Add(RandomLocation);
+		StageManager->SpawnGroup(GetWorld(),Group);
 	}
-
-	StageManager->Init(GetWorld(), RockVisualClass, RockPositions);
+	
+	
+	TArray<AActor*> Found;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AFollowScenery::StaticClass(), Found);
+	
+	for (AActor* A : Found)
+	{
+		FollowSceneries.Add(Cast<AFollowScenery>(A));
+	}
 
 	/** 敵の初期化 */
 	EnemyManager = NewObject<UEnemyManager>(this);
@@ -97,6 +100,10 @@ void AGameManager::BeginPlay()
 			TimeWidget->AddToViewport();
 		}
 	}
+	
+	/* デバックウィンドウ関連 BulletManagerの初期化後 */
+	DebugStats = NewObject<UDebugStatusSystem>(this);
+	DebugStats->Init(GetWorld(),BulletManager);
 
 	ElapsedTime = PlayTimeLimit;
 }
@@ -108,6 +115,7 @@ void AGameManager::BeginPlay()
 void AGameManager::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	DebugStats->Update(DeltaTime);
 
 	/** Playerの更新 */
 	Player->Update(DeltaTime);
@@ -122,6 +130,11 @@ void AGameManager::Tick(float DeltaTime)
 
 	/** ステージの更新 */
 	StageManager->Update(DeltaTime);
+	
+	for (AFollowScenery* S : FollowSceneries)
+	{
+		S->Update(Player->Transform.GetLocation());
+	}
 
 	/** 敵の更新 */
 	EnemyManager->Update(DeltaTime, Player->Transform.GetLocation(),PlayerCamera->GetActorLocation());
@@ -160,7 +173,7 @@ void AGameManager::Tick(float DeltaTime)
 	/** デモ:プレイヤのHPが0以下になったら */
 	if (Player->GetCurrentHp() <= 0)
 	{
-		// GameInstanceのFinalScoreにScoreSytemが持っているスコアを渡す
+		// GameInstanceのFinalScoreにScoreSystemが持っているスコアを渡す
 		if (UProtectGameInstance* GI = Cast<UProtectGameInstance>(GetGameInstance()))
 		{
 			GI->FinalScore = ScoreSystem ? ScoreSystem->GetScore() : 0;

@@ -1,7 +1,6 @@
 ﻿#pragma once
 
-#include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
+#include "CoreMinimal.h"	
 
 #include "GameObjectBase.generated.h"
 
@@ -19,8 +18,8 @@ public:
 	virtual void Init(){}
 	virtual void Update(float DeltaTime) {}
 	
-	FTransform Transform;		/** ワールド上の位置 */
-	FTransform ModelTransform;	/** モデルオフセット */
+	FTransform Transform;		// ワールド上の位置
+	FTransform ModelTransform;	// モデルオフセット
 
 	UPROPERTY()
 	UStaticMeshComponent* MeshComp = nullptr;

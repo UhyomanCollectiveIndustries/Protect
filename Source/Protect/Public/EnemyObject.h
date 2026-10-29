@@ -18,7 +18,7 @@ class PROTECT_API UEnemyObject : public UStageObject
 	
 public:
 	// 初期化処理
-	void Init(const FVector& Pos, float InRadius, int32 Hp);
+	virtual void Init(const FVector& Pos, float InRadius, int32 Hp);
 	// 更新処理(AIの処理)
 	virtual void Update(float DeltaTime,const FVector& PlayerPos,const FVector& PlayerCameraPos);
 
@@ -28,6 +28,8 @@ public:
 	int32 GetCurrentHp() const { return CurrentHp; }  // 現在のHPを取得
 	int32 GetMaxHp() const { return MaxHp; } // 最大HPを取得
 
+	bool bCollidable = true;	// 衝突可能かのフラグ、ボスの本体などはfalse
+	
 private:
 	int32 CurrentHp = 0;	// 現在のHP
 	int32 MaxHp = 0;	// 最大HP

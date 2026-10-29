@@ -65,7 +65,7 @@ void FCollisionSystem::CheckBulletVsEnemy(
 		/** アクティブな敵を探す */
 		for (UEnemyObject* Enemy : Enemies.GetActiveEnemies())
 		{
-			if (!Enemy->bIsActive) continue;
+			if (!Enemy->bIsActive || !Enemy->bCollidable) continue;
 
 			/** 弾と敵の距離計算 */
 			float Dist = FVector::Dist(
@@ -102,7 +102,7 @@ void FCollisionSystem::CheckPlayerVsEnemy(
 	/** アクティブな敵を探す */
 	for (UEnemyObject* Enemy : Enemies.GetActiveEnemies())
 	{
-		if (!Enemy->bIsActive) continue;
+		if (!Enemy->bIsActive || !Enemy->bCollidable) continue;
 
 		/** プレイヤと敵の距離計算 */
 		float Dist = FVector::Dist(

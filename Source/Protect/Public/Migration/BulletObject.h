@@ -15,7 +15,6 @@ class PROTECT_API UBulletObject:public UGameObjectBase
 	GENERATED_BODY()
 
 public:
-
 	// 弾がアクティブかどうかのフラグ
 	bool bIsActive = false;
 
@@ -27,7 +26,6 @@ public:
 
 	// 弾の寿命(秒)
 	static constexpr float BulletLifeTime = 1.5f;
-
 
 	// 発射時の初期化
 	void FireInit(const FVector& StartPos, const FVector& Dir);

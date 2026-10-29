@@ -42,14 +42,16 @@ private:
 	float InputV = 0.f;
 	float InputSprint = 0.0f;
 
-	const float MAXSPRINTSTAMINA = 100.f;
+	const float MaxSprintStamina = 100.f;
 	float SprintStamina = 100.f;
 	bool bIsSprint = true;
+	UPROPERTY()
 	UPlayerStaminaWidget* PlayerStaminaWidget;
 
 	int32 MaxHp = 10;
 	int32 CurrentHp = 10;
 	float InvincibleTimer = 0.f;
 	const float InvincibleDuration = 1.0f;	// 無敵時間
+	UPROPERTY()
 	UPlayerHPWidget* PlayerHPWidget;
 };

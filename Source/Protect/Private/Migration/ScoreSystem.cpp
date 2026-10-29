@@ -1,5 +1,7 @@
 ﻿#include "Migration/ScoreSystem.h"
 
+#include "Migration/StageObject.h"
+
 
 void UScoreSystem::HandleCollision(const FCustomCollisionEvent& Event)
 {
@@ -17,7 +19,7 @@ void UScoreSystem::HandleCollision(const FCustomCollisionEvent& Event)
 	}
 	else if (Event.StageObject)
 	{
-		AddScore(100);
+		AddScore(Event.StageObject->ScoreValue);
 	}
 }
 

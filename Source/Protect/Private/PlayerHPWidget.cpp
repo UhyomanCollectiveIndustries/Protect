@@ -1,6 +1,6 @@
 ﻿#include "PlayerHPWidget.h"
 
-#include "Migration\/PlayerObject.h"
+#include "Migration/PlayerObject.h"
 
 
 void UPlayerHPWidget::NativeConstruct()

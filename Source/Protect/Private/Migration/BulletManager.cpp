@@ -25,6 +25,8 @@ void UBulletManager::Init(UWorld* World, TSubclassOf<ABulletVisual> VisualClass)
 */
 void UBulletManager::Fire(const FVector& Pos, const FVector& Dir)
 {
+	++FireRequestCount;
+	
 	// 空きスロットを線形探索
 	for (int32 i = 0; i < MaxBullets; ++i)
 	{
@@ -37,10 +39,8 @@ void UBulletManager::Fire(const FVector& Pos, const FVector& Dir)
 		}
 	}
 	
-	/**
-		空きがなければ何もしない
-			[feature]プールの最大値に達したら、最初に撃った弾から消すようにしたい/論理弾の実装も検討
-	*/	
+	// 空きがない場合
+	++FireRejectCount;
 }
 
 /** 
@@ -60,4 +60,19 @@ void UBulletManager::Update(float DeltaTime)
 
 		VisualPool[i]->SetVisualActive(BulletPool[i]->bIsActive);
 	}
+	
+	PeakActiveCount = FMath::Max(PeakActiveCount, GetActiveCount());
+}
+
+/**
+ *	アクティブな弾のカウント
+ */
+int32 UBulletManager::GetActiveCount() const
+{
+	int32 Count = 0;
+	for (const UBulletObject* Bullet : BulletPool)
+	{
+		if (Bullet->bIsActive) ++Count;
+	}
+	return Count;
 }

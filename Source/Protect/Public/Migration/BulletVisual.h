@@ -7,7 +7,7 @@
 
 
 /**
-	弾1つ分の見た目クラス
+*	弾1つ分の見た目クラス
 */
 UCLASS()
 class PROTECT_API ABulletVisual : public AActor

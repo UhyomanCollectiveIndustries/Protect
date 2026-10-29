@@ -3,6 +3,7 @@
 #include <EnhancedInputComponent.h>
 #include <EnhancedInputSubsystems.h>
 #include <Kismet/GameplayStatics.h>
+#include "DebugHUD.h"
 
 
 void ASpaceGamePlayerController::BeginPlay()
@@ -42,6 +43,17 @@ void ASpaceGamePlayerController::SetupInputComponent()
 		EIC->BindAction(SprintAction, ETriggerEvent::Completed, this, &ASpaceGamePlayerController::HandleSprintCompleted);
 
 		EIC->BindAction(FireAction, ETriggerEvent::Started, this, &ASpaceGamePlayerController::HandleFire);
+	}
+	
+	// デバックウィンドウ表示の切り替え
+	InputComponent->BindKey(EKeys::F1,IE_Pressed,this,&ASpaceGamePlayerController::ToggleDebugWindow);
+}
+
+void ASpaceGamePlayerController::ToggleDebugWindow()
+{
+	if (ADebugHUD* DebugHUD = Cast<ADebugHUD>(GetHUD()))
+	{
+		DebugHUD->ToggleDebugWindow();
 	}
 }
 

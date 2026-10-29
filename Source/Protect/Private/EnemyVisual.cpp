@@ -10,8 +10,7 @@ AEnemyVisual::AEnemyVisual()
 	RootComponent = MeshComp;
 	MeshComp->SetRelativeScale3D(FVector(1.0f));
 
-	SetActorHiddenInGame(true);
-	SetActorEnableCollision(false);
+	SetVisualActive(false);
 }
 
 // Transformの適用(更新処理)

@@ -24,6 +24,8 @@ public:
 	*		SphereColliderの半径になる
 	*/
 	float Radius = 100.0f;
+	
+	int32 ScoreValue = 100;
 
 	/** 初期化処理 */
 	void Init(const FVector& Pos, float InRadius);

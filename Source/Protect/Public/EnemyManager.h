@@ -27,12 +27,19 @@ public:
 
 private:
 	void TriggerPhase(FEnemyPhase& Phase);
+	
+	// 敵1体分(ロジック＋見た目)を生成してActiveリストに登録する
+	UEnemyObject* SpawnEnemy(TSubclassOf<UEnemyObject>EnemyClass,TSubclassOf<AEnemyVisual>VisualClass,
+		const FVector& Pos,float Radius,int32 Hp);
 
 	UPROPERTY()
 	TArray<UEnemyObject*> ActiveObjects;
 
 	UPROPERTY()
 	TArray<AEnemyVisual*> ActiveVisuals;
+	
+	// 当たり判定の弾を表示する(弱点の半径とメッシュの大きさを合わせる)
+	bool bDrawCollisionDebug = true;
 
 	TArray<FEnemyPhase> Phases;
 

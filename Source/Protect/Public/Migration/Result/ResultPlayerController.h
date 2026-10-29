@@ -6,7 +6,7 @@
 
 #include "ResultPlayerController.generated.h"
 
-class RsultWidget;
+class FResultWidget;
 
 
 /**

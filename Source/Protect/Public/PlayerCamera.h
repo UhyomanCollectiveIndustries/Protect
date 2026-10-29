@@ -45,7 +45,7 @@ private:
 
 	// FOVの速度に応じた最大値
 	UPROPERTY(EditDefaultsOnly, Category = "Camera")
-	float MAXFOVBonus = 20.0f;
+	float MaxFOVBonus = 20.0f;
 
 	// どの速度でFOVボーナスが最大になるか(PlayerSpeedの最高速度に合わせる)
 	UPROPERTY(EditDefaultsOnly, Category = "Camera")

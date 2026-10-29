@@ -6,6 +6,28 @@
 class UEnemyObject;
 class AEnemyVisual;
 
+/*+
+ *
+ */
+USTRUCT(BlueprintType)
+struct FBossPartInfo
+{
+	GENERATED_BODY()
+	
+	UPROPERTY(EditAnywhere,Category="Boss")
+	TSubclassOf<AEnemyVisual> VisualClass;
+	
+	// ボス本体の位置から見た相対位置
+	UPROPERTY(EditAnywhere,Category="Boss")
+	FVector LocalOffSet = FVector::ZeroVector;
+	
+	// 弾の当たり判定の半径(見た目のメッシュに合わせる)
+	UPROPERTY(EditAnywhere,Category="Boss")
+	float Radius = 10.f;
+	
+	UPROPERTY(EditAnywhere,Category="Boss")
+	int32 Hp = 10;	
+};
 
 /**
  *	敵1体分の情報
@@ -36,6 +58,10 @@ struct FEnemySpawnInfo
 
 	UPROPERTY(EditAnywhere, Category = "Enemy")
 	int32 Hp = 10;
+	
+	// ボスの場合のみ使用する弱点パーツ一覧
+	UPROPERTY(EditAnywhere,Category="Boss")
+	TArray<FBossPartInfo> Parts;
 };
 
 /**

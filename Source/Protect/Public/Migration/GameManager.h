@@ -1,15 +1,16 @@
 ﻿#pragma once
 
 #include "CoreMinimal.h"
+#include "DebugStatusSystem.h"
 #include "GameFramework/Actor.h"
 
-#include "Migration/GameObjectBase.h"
 #include "Migration/PlayerObject.h"
 #include "Migration/ShipVisual.h"
 #include "PlayerCamera.h"
 
 #include "Migration/BulletManager.h"
 #include "Migration/StageManager.h"
+#include "FollowScenery.h"
 #include "EnemyManager.h"
 
 #include "Migration/EventBus.h"
@@ -42,8 +43,9 @@ public:
 	UPlayerObject* GetPlayerObject() const { return Player; }
 	AShipVisual* GetPlayerVisual() const { return PlayerVisual; }
 	UBulletManager* GetBulletManager() const { return BulletManager; }
-	UScoreSystem* GetScoreSytem() const { return ScoreSystem; }
-	float GetElapsedTime() { return ElapsedTime; }
+	UScoreSystem* GetScoreSystem() const { return ScoreSystem; }
+	float GetElapsedTime () const { return ElapsedTime; }
+	UDebugStatusSystem* GetDebugStats() const {return DebugStats;}
 
 protected:
 	/**
@@ -51,6 +53,7 @@ protected:
 	*/
 	virtual void BeginPlay() override;
 
+public:
 	/**
 	*	更新処理
 	*/
@@ -64,7 +67,7 @@ protected:
 private:
 	/** ゲームフロー関連 */
 	UPROPERTY(EditDefaultsOnly, Category = "GameFlow")
-	float PlayTimeLimit = 30.f;
+	float PlayTimeLimit = 90.f;
 
 	float ElapsedTime = 0.f;
 	
@@ -107,9 +110,21 @@ private:
 	UPROPERTY()
 	UStageManager* StageManager;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Spawn")
-	TSubclassOf<ARockVisual> RockVisualClass;
-
+	UPROPERTY(EditDefaultsOnly, Category = "Stage")
+	TArray<FStageObjectGroup> StageObjectGroups;
+	
+	UPROPERTY(EditAnywhere,Category="Stage")
+	int32 RockCount = 30;
+	
+	UPROPERTY(EditAnywhere,Category="Stage")
+	FVector RockAreaMin = FVector(1000.f,-500.f,0.f);
+	
+	UPROPERTY(EditAnywhere,Category="Stage")
+	FVector RockAreaMax = FVector(6500.f,500.f,500.f);
+	
+	UPROPERTY()
+	TArray<AFollowScenery*> FollowSceneries;
+	
 	/** 敵関連 */
 
 	UPROPERTY()
@@ -152,5 +167,8 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = "UI")
 	TSubclassOf<UTimeWidget> TimeWidgetClass;
-
+	
+	// デバックウィンドウ関連
+	UPROPERTY()
+	UDebugStatusSystem* DebugStats;
 };

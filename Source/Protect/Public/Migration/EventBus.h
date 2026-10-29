@@ -19,8 +19,8 @@ class PROTECT_API UEventBus : public UObject
 
 public:
 	FOnCollisionEvent OnCollision;
-
-	void Publish(const FCustomCollisionEvent& Event)
+	
+	void Publish(const FCustomCollisionEvent& Event) const
 	{
 		OnCollision.Broadcast(Event);
 	}

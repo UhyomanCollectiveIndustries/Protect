@@ -26,7 +26,6 @@ public:
 private:
 
 	// 各エフェクトアセットの格納郡
-
 	UNiagaraSystem* StageEffect = nullptr;	// ステージ衝突用
 	UNiagaraSystem* EnemyEffect = nullptr;	// 敵消滅用
 

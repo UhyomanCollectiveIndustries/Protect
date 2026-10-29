@@ -29,6 +29,25 @@ void UStageManager::Init(UWorld* World, TSubclassOf<ARockVisual> VisualClass, co
 	}
 }
 
+void UStageManager::SpawnGroup(UWorld* World,const FStageObjectGroup& Group)
+{
+	if (!World || !Group.VisualClass) return;
+	
+	const FBox Area(Group.AreaMin, Group.AreaMax);
+	for (int32 i=0;i<Group.Count;++i)
+	{
+		UStageObject* Obj = NewObject<UStageObject>(this);
+		Obj->Init(FMath::RandPointInBox(Area), Group.Radius);
+		Obj->ScoreValue = Group.ScoreValue;
+		StageObjects.Add(Obj);
+		
+		ARockVisual* Visual = World->SpawnActor<ARockVisual>(Group.VisualClass);
+		Visual->ApplyTransform(Obj->Transform);
+		Visual->SetVisualActive(true);
+		StageVisuals.Add(Visual);
+	}
+}
+
 /** 更新処理 */
 void UStageManager::Update(float DeltaTime)
 {

@@ -35,7 +35,7 @@ void APlayerCamera::Update(float DeltaTime, const FTransform& PlayerTransform, f
 
 	// 速度に応じてFOVを広げる
 	float SpeedRatio = FMath::Clamp(PlayerSpeed / MaxSpeedReference, 0.f, 1.f);
-	float TargetFOV = BaseFOV + MAXFOVBonus * SpeedRatio;
+	float TargetFOV = BaseFOV + MaxFOVBonus * SpeedRatio;
 	CurrentFOV = FMath::FInterpTo(CurrentFOV, TargetFOV, DeltaTime, 2.0f);
 	CameraComp->SetFieldOfView(CurrentFOV);
 }

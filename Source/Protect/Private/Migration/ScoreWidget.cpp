@@ -11,9 +11,9 @@ void UScoreWidget::NativeConstruct()
 	if (AGameManager* GM = Cast<AGameManager>(
 		UGameplayStatics::GetActorOfClass(GetWorld(), AGameManager::StaticClass())))
 	{
-		if (GM->GetScoreSytem())
+		if (GM->GetScoreSystem())
 		{
-			GM->GetScoreSytem()->OnScoreChanged.AddUObject(this, &UScoreWidget::HandleScoreChanged);
+			GM->GetScoreSystem()->OnScoreChanged.AddUObject(this, &UScoreWidget::HandleScoreChanged);
 		}
 	}
 }

@@ -16,11 +16,15 @@ UCLASS()
 class PROTECT_API ASpaceGamePlayerController : public APlayerController
 {
 	GENERATED_BODY()
-	
+
 protected:
 	virtual void BeginPlay() override;
 	virtual void SetupInputComponent() override;
 
+public:
+	UFUNCTION(Exec)
+	void ToggleDebugWindow();
+	
 private:
 	UPROPERTY(EditDefaultsOnly,Category="Input")
 	UInputMappingContext* DefaultMappingContext;

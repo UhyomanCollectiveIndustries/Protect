@@ -75,6 +75,5 @@ Plugins/**/Intermediate/*
 DerivedDataCache/*
 
 # 3Dモデルなど
-Content/Assets/Effects/*
-Content/Assets/Models/*
-Content/Assets/Sound/*
+Content/Migration/Assets/*
+Content/Migration/Assets/Models/*
